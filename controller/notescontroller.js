@@ -176,11 +176,7 @@ const getnotebytag=async (req,res)=>{
             userid:req.user.id,
             tags:tag
         }).exec();
-        if(foundnotes.length===0){
-           return res.status(404).json({
-            "message": "note not found"
-         });  
-        }
+       
          return res.json(foundnotes.map(formatNote));
     }
     catch (err){

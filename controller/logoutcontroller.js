@@ -10,13 +10,13 @@ const handlelogout=async (req,res)=>{
         refreshToken: { $in: [refreshtoken] }
     }).exec();
     if(!founduser){
-        res.clearCookie('jwt',{httpOnly:true,sameSite:'Lax'});
+        res.clearCookie('jwt',{httpOnly:true,secure:true,sameSite:'None'});
         return res.sendStatus(204);
     }
     founduser.refreshToken=founduser.refreshToken.filter(rt=>rt!==refreshtoken);
     const result=await founduser.save();
     console.log(result);
-    res.clearCookie('jwt',{httpOnly:true,sameSite:'Lax'});
+    res.clearCookie('jwt',{httpOnly:true,sameSite:'None',secure:true});
     res.sendStatus(204);
 }
 module.exports={handlelogout};
